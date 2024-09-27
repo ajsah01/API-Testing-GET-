@@ -1,0 +1,31 @@
+import requests
+import json
+
+
+#base url;
+base_url = "http://182.93.93.82:8585"
+activity_id = 1
+
+#Auth token;
+auth_token = "Bearer 6db4083510d767636ca0ab6d1a84f149fc35da86"
+
+
+#GET Request;
+def get_request_by_id():
+    url = f"{base_url}/api/v1/applications/{activity_id}"
+    print("GET URL: " + url)
+
+    headers = {
+        "Authorization": auth_token
+    }
+    response = requests.get(url, headers=headers)
+
+    if response.status_code ==200:
+       json_data = response.json()
+       json_str = json.dumps(json_data, indent=4)
+       print("json GET response body:",json_str)
+    else:
+        print(f"Failed to GET data. status code: {response.status_code}")
+        print("Response text:", response.text)
+
+get_request_by_id()
